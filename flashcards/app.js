@@ -2,8 +2,10 @@ const express = require('express'); // require the app
 
 const app = express(); // create the app
 
+app.set('view engine', 'pug'); // Tell Express which template engine to use
+
 app.get('/', (req, res) => {
-   res.send('<h1>I love ExpressJS !!</h1>');
+   res.render('index');
 });
 
 app.get('/hello', (req, res) => {
