@@ -2,14 +2,27 @@ const express = require('express'); // require the app
 
 const app = express(); // create the app
 
+const colors = [
+  'red',
+  'orange',
+  'yellow',
+  'green',
+  'blue',
+  'purple'
+];
+
 app.set('view engine', 'pug'); // Tell Express which template engine to use
 
 app.get('/', (req, res) => {
-   res.render('index');
+  res.render('index');
 });
 
 app.get('/cards', (req, res) => {
-   res.render('card', { prompt: "Who is buried in Grant's tomb?", hint: "Think abut whose tomb it is. "});                   // prompt is variable name.
+  res.render('card', {
+    prompt: "Who is buried in Grant's tomb?",
+    hint: "Think abut whose tomb it is.",
+    colors        // post the array in to the template
+  }); // prompt is variable name.
 });
 
 app.listen(3000, () => {
