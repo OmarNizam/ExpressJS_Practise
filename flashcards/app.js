@@ -25,6 +25,13 @@ app.get('/cards', (req, res) => {
   }); // prompt is variable name.
 });
 
+app.get('/hello', (req, res) => {
+  res.render('hello');
+});
+app.post('/hello', (req, res) => {
+  res.render('hello');
+});
+
 app.listen(3000, () => {
   console.log('The application is running on localhost:3000');
 }); // app will be listening to port 3000
