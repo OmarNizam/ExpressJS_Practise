@@ -21,8 +21,14 @@ app.set('view engine', 'pug'); // Tell Express which template engine to use
 
 app.get('/', (req, res) => {
   const name = req.cookies.username;
-  res.render('index', { name });
+  if (name) {
+    res.render('index', { name }); // redirect user to welcome page if the cookies username has value
+  } else {
+    res.redirect('hello');  // redirect user to hello page if the cookies username isn't set
+  }
 });
+
+
 
 app.get('/cards', (req, res) => {
   res.render('card', {
@@ -33,8 +39,12 @@ app.get('/cards', (req, res) => {
 });
 
 app.get('/hello', (req, res) => {
-  res.render('hello');
-  // res.
+  const name = req.cooikies.username;
+  if (name) {
+    res.redirect('/');
+  } else {
+    res.render('hello');
+  }
 });
 app.post('/hello', (req, res) => {
   // console.dir(req.body); // to look closely on the request body
