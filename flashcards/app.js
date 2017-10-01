@@ -20,7 +20,8 @@ const colors = [
 app.set('view engine', 'pug'); // Tell Express which template engine to use
 
 app.get('/', (req, res) => {
-  res.render('index');
+  const name = req.cookies.username;
+  res.render('index', { name });
 });
 
 app.get('/cards', (req, res) => {
@@ -32,13 +33,15 @@ app.get('/cards', (req, res) => {
 });
 
 app.get('/hello', (req, res) => {
-  res.render('hello', { name: req.cookies.username });
+  res.render('hello');
+  // res.
 });
 app.post('/hello', (req, res) => {
   // console.dir(req.body); // to look closely on the request body
   //res.json(req.body); // if we want to see the json file of the req.body
   res.cookie('username', req.body.username); // this will send a cookie to the browser after the user submit the form
-  res.render('hello', { name: req.body.username });
+  // res.render('hello', { name: req.body.username });
+  res.redirect('/');
 });
 
 app.listen(3000, () => {
