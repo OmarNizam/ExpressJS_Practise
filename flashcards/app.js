@@ -25,6 +25,7 @@ app.use((req, res, next) => {
   // req.message = "This message made it!"; // how to pass message from function to another
   console.log("Hello");
   const err = new Error('Oh noes!');
+  err.status = 500; // set the error status to 500 the general server Error
   next(err);
 });
 
@@ -80,6 +81,13 @@ app.post('/hello', (req, res) => {
 app.post('/goodbye', (req, res) => {
   res.clearCookie('username'); // clear the cookie then redirect to the hello page
   res.redirect('/hello');
+});
+
+// error middleware
+app.use((err, req, res, next) => {
+  res.locals.error = err;
+  res.status(err.status); // will be 500
+  res.render('error', err); // we added err object cause it hold data about error and this will give the template access to error data
 });
 
 app.listen(3000, () => {
