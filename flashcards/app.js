@@ -3,7 +3,8 @@ const express = require('express'); // require the app
 const app = express(); // create the app
 const bodyParser = require('body-parser');
 
-app.use(bodyParser.urlencoded({ extended: false }));
+//app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 const colors = [
   'red',
@@ -33,7 +34,8 @@ app.get('/hello', (req, res) => {
 });
 app.post('/hello', (req, res) => {
   console.dir(req.body); // to look closely on the request body
-  res.render('hello');
+  //res.json(req.body); // if we want to see the json file of the req.body
+  res.render('hello', { name: req.body.username });
 });
 
 app.listen(3000, () => {
