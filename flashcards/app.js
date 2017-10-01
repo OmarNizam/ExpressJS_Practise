@@ -22,13 +22,15 @@ app.set('view engine', 'pug'); // Tell Express which template engine to use
 // To run middleware function in response to requests, pass it into app.use
 app.use((req, res, next) => {
   // console.log('One');
-  req.message = "This message made it!"; // how to pass message from function to another
+  // req.message = "This message made it!"; // how to pass message from function to another
+  console.log("Hello");
   next();
 });
 
 app.use((req, res, next) => {
   // console.log('Two');
-  console.log(req.message);
+  // console.log(req.message);
+  console.log("World");
   next();
 });
 
