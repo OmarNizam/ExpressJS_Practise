@@ -5,8 +5,8 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
 //app.use(bodyParser.json()); // for parsing application/json
-app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-app.use(cookieParser());  // call the func directly and provide it in to the app
+app.use(bodyParser.urlencoded({ extended: true })); // to post the incoming form data
+app.use(cookieParser());  // call the func directly and provide it in to the app // to read cookie information
 
 const colors = [
   'red',
@@ -18,6 +18,24 @@ const colors = [
 ];
 
 app.set('view engine', 'pug'); // Tell Express which template engine to use
+
+// To run middleware function in response to requests, pass it into app.use
+app.use((req, res, next) => {
+  // console.log('One');
+  req.message = "This message made it!"; // how to pass message from function to another
+  next();
+});
+
+app.use((req, res, next) => {
+  // console.log('Two');
+  console.log(req.message);
+  next();
+});
+
+
+
+
+
 
 app.get('/', (req, res) => {
   const name = req.cookies.username;
