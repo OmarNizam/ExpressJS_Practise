@@ -39,7 +39,7 @@ app.get('/cards', (req, res) => {
 });
 
 app.get('/hello', (req, res) => {
-  const name = req.cooikies.username;
+  const name = req.cookies.username;
   if (name) {
     res.redirect('/');
   } else {
@@ -52,6 +52,13 @@ app.post('/hello', (req, res) => {
   res.cookie('username', req.body.username); // this will send a cookie to the browser after the user submit the form
   // res.render('hello', { name: req.body.username });
   res.redirect('/');
+});
+
+// post request for the goodbye button
+// Create a new route called goodbye
+app.post('/goodbye', (req, res) => {
+  res.clearCookie('username'); // clear the cookie then redirect to the hello page
+  res.redirect('/hello');
 });
 
 app.listen(3000, () => {
