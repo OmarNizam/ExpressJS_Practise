@@ -2,9 +2,11 @@ const express = require('express'); // require the app
 
 const app = express(); // create the app
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
 //app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(cookieParser());  // call the func directly and provide it in to the app
 
 const colors = [
   'red',
@@ -30,11 +32,12 @@ app.get('/cards', (req, res) => {
 });
 
 app.get('/hello', (req, res) => {
-  res.render('hello');
+  res.render('hello', { name: req.cookies.username });
 });
 app.post('/hello', (req, res) => {
-  console.dir(req.body); // to look closely on the request body
+  // console.dir(req.body); // to look closely on the request body
   //res.json(req.body); // if we want to see the json file of the req.body
+  res.cookie('username', req.body.username); // this will send a cookie to the browser after the user submit the form
   res.render('hello', { name: req.body.username });
 });
 
