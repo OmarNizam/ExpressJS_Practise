@@ -20,14 +20,14 @@ const colors = [
 app.set('view engine', 'pug'); // Tell Express which template engine to use
 
 // To run middleware function in response to requests, pass it into app.use
-app.use((req, res, next) => {
-  // console.log('One');
-  // req.message = "This message made it!"; // how to pass message from function to another
-  console.log("Hello");
-  const err = new Error('Oh noes!');
-  err.status = 500; // set the error status to 500 the general server Error
-  next(err);
-});
+// app.use((req, res, next) => {
+//   // console.log('One');
+//   // req.message = "This message made it!"; // how to pass message from function to another
+//   console.log("Hello");
+//   const err = new Error('Oh noes!');
+//   err.status = 500; // set the error status to 500 the general server Error
+//   next(err);
+// });
 
 app.use((req, res, next) => {
   // console.log('Two');
@@ -83,7 +83,14 @@ app.post('/goodbye', (req, res) => {
   res.redirect('/hello');
 });
 
-// error middleware
+// create an error if the route not found 404
+app.use((req, res, next) => {
+  const err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+
+// error middleware OR error handler
 app.use((err, req, res, next) => {
   res.locals.error = err;
   res.status(err.status); // will be 500
