@@ -11,9 +11,15 @@ router.get('/:id', (req, res) => {   // we deleted the cards from the bath here 
   const text = cards[id][side];
   const { hint } = cards[id];
 
-  const templateData = { text };
+  const templateData = { id, text };
+
   if (side === "question") {  // hint show up when the question side in showing.
     templateData.hint = hint;
+    templateData.sideToShow = 'answer';
+    templateData.sideToShowDisplay = "Answer";
+  } else if (side === "answer") {
+    templateData.sideToShow = "question";
+    templateData.sideToShowDisplay = "Question";
   }
   res.render('card', templateData); // prompt is variable name.
 });
