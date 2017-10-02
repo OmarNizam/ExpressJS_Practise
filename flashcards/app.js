@@ -8,14 +8,14 @@ const cookieParser = require('cookie-parser');
 app.use(bodyParser.urlencoded({ extended: true })); // to post the incoming form data
 app.use(cookieParser());  // call the func directly and provide it in to the app // to read cookie information
 
-const colors = [
-  'red',
-  'orange',
-  'yellow',
-  'green',
-  'blue',
-  'purple'
-];
+// const colors = [
+//   'red',
+//   'orange',
+//   'yellow',
+//   'green',
+//   'blue',
+//   'purple'
+// ];
 
 app.set('view engine', 'pug'); // Tell Express which template engine to use
 
