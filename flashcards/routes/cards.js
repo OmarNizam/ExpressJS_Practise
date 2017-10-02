@@ -20,10 +20,12 @@ router.get('/:id', (req, res) => {   // we deleted the cards from the bath here 
     res.redirect(`/cards/${id}?side=question`); // if there is no side in the path redirect to the same card when side=question
   }
 
+  const name = req.cookies.username;
+
   const text = cards[id][side];
   const { hint } = cards[id];
 
-  const templateData = { id, text };
+  const templateData = { id, text, name };
 
   if (side === "question") {  // hint show up when the question side in showing.
     templateData.hint = hint;
