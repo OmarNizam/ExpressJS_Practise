@@ -19,7 +19,17 @@ const colors = [
 
 app.set('view engine', 'pug'); // Tell Express which template engine to use
 
+// import the router to let the app to access to the routes
+const mainRoutes = require('./routes/index');
+// import the card routes for the falshcards
+const cardRoutes = require('./routes/cards');
+// use routes variable and declared to make middleware now
+app.use(mainRoutes);
+app.use('/cards', cardRoutes);  // '/cards' here means that all the routes in cards.js are cards
+
+
 // To run middleware function in response to requests, pass it into app.use
+
 // app.use((req, res, next) => {
 //   // console.log('One');
 //   // req.message = "This message made it!"; // how to pass message from function to another
@@ -29,59 +39,15 @@ app.set('view engine', 'pug'); // Tell Express which template engine to use
 //   next(err);
 // });
 
-app.use((req, res, next) => {
-  // console.log('Two');
-  // console.log(req.message);
-  console.log("World");
-  next();
-});
+//second middleware
 
+// app.use((req, res, next) => {
+//   // console.log('Two');
+//   // console.log(req.message);
+//   console.log("World");
+//   next();
+// });
 
-
-
-
-
-app.get('/', (req, res) => {
-  const name = req.cookies.username;
-  if (name) {
-    res.render('index', { name }); // redirect user to welcome page if the cookies username has value
-  } else {
-    res.redirect('hello');  // redirect user to hello page if the cookies username isn't set
-  }
-});
-
-
-
-app.get('/cards', (req, res) => {
-  res.render('card', {
-    prompt: "Who is buried in Grant's tomb?",
-    hint: "Think abut whose tomb it is.",
-    colors        // post the array in to the template
-  }); // prompt is variable name.
-});
-
-app.get('/hello', (req, res) => {
-  const name = req.cookies.username;
-  if (name) {
-    res.redirect('/');
-  } else {
-    res.render('hello');
-  }
-});
-app.post('/hello', (req, res) => {
-  // console.dir(req.body); // to look closely on the request body
-  //res.json(req.body); // if we want to see the json file of the req.body
-  res.cookie('username', req.body.username); // this will send a cookie to the browser after the user submit the form
-  // res.render('hello', { name: req.body.username });
-  res.redirect('/');
-});
-
-// post request for the goodbye button
-// Create a new route called goodbye
-app.post('/goodbye', (req, res) => {
-  res.clearCookie('username'); // clear the cookie then redirect to the hello page
-  res.redirect('/hello');
-});
 
 // create an error if the route not found 404
 app.use((req, res, next) => {
