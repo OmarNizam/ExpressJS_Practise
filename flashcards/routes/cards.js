@@ -17,7 +17,8 @@ router.get('/:id', (req, res) => {   // we deleted the cards from the bath here 
   const { id } = req.params;
 
   if ( !side ) {
-    res.redirect(`/cards/${id}?side=question`); // if there is no side in the path redirect to the same card when side=question
+    return res.redirect(`/cards/${id}?side=question`); // if there is no side in the path redirect to the same card when side=question
+    // we put return cause in this router there is redirect and render at the same time 
   }
 
   const name = req.cookies.username;
